@@ -22,7 +22,12 @@ router.post('/', async (req, res) => {
         const gameId = Object.keys(data)
 
         if (!game) {
-            const newFavorite = { user: req.headers.user, rating: req.body.rating, info: data[gameId].data }
+            const newFavorite = {
+                user: req.headers.user,
+                rating: req.body.rating,
+                info: data[gameId].data
+            }
+
             db.push(newFavorite)
 
             fs.writeFile(path.join(__dirname, '../db.json'), JSON.stringify(db), err => {
@@ -39,18 +44,19 @@ router.post('/', async (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    const game = db.find(game => game.info.steam_appid === req.params.id
+    const game = db.find(game => game.info.steam_appid == req.params.id
         && game.user == req.headers.user)
 
-    if (!game) {
-        const favorites = db.filter(game => game.info.steam_appid !== req.params.id
-            && game.user != req.headers.user)
+    if (game) {
+        const updateFavorites = db.filter(game => game.info.steam_appid != req.params.id
+            || game.user != req.headers.user)
 
-        fs.writeFile(path.join(__dirname, '../db.json'), JSON.stringify(favorites), err => {
-            console.log(err || 'saved file')
-        })
+        fs.writeFile(path.join(__dirname, '../db.json'),
+            JSON.stringify(updateFavorites), err => {
+                console.log(err || 'saved file')
+            })
 
-        res.json(favorites)
+        res.json(updateFavorites)
     } else {
         res.send('Jogo não favoritado por este usuário')
     }

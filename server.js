@@ -5,7 +5,7 @@ const favorites = require('./routes/favorites')
 
 app.use(express.json())
 
-// app.use('/', games)
+app.use('/', games)
 
 app.use('/favorites', favorites)
 
