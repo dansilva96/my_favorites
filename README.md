@@ -1,6 +1,8 @@
 # my_favorites
 
-Projeto backend em Node.js feito para o processo de seleção de estagiários da App Masters [appmasters.io](appmasters.io)
+Projeto backend em Node.js que fornece os jogos da steam e permite o cliente (um possível frontend), buscar um jogo, obter mais informações, favoritar e avaliar seus itens preferidos.
+
+Feito para o processo de seleção de estagiários da App Masters [appmasters.io](appmasters.io)
 
 ## Executar o App
 
