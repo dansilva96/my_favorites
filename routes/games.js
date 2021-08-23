@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id(\\d+)/', async (req, res) => {
     try {
         const { data } = await axios.get(
             `https://store.steampowered.com/api/appdetails?appids=${req.params.id}`)
